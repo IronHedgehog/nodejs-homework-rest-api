@@ -1,14 +1,23 @@
-// const fs = require('fs/promises')
+const fs = require("fs/promises");
+const path = require("path");
+const { nanoid } = require("nanoid");
 
-const listContacts = async () => {}
+const filePath = path.join(__dirname, "contacts.json");
 
-const getContactById = async (contactId) => {}
+const listContacts = async () => {
+  const contacts = await fs.readFile(filePath);
+  return JSON.parse(contacts);
+};
 
-const removeContact = async (contactId) => {}
+const getContactById = async (contactId) => {
+  const contacts = await listContacts();
+};
 
-const addContact = async (body) => {}
+const removeContact = async (contactId) => {};
 
-const updateContact = async (contactId, body) => {}
+const addContact = async (body) => {};
+
+const updateContact = async (contactId, body) => {};
 
 module.exports = {
   listContacts,
@@ -16,4 +25,4 @@ module.exports = {
   removeContact,
   addContact,
   updateContact,
-}
+};
