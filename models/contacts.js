@@ -39,21 +39,20 @@ const addContact = async (body) => {
     ...body,
     id: nanoid(),
   };
-  console.log("newContact", newContact);
   contacts.push(newContact);
   fs.writeFile(filePath, JSON.stringify(contacts, null, 2));
   return newContact;
 };
 
-const updateContact = async (contactId, body) => {
+const updateContact = async (id, body) => {
   const contacts = await listContacts();
   const updatedContact = contacts.findIndex(
-    ({ id }) => String(id) === String(contactId)
+    (contacts) => String(contacts.id) === String(id)
   );
   if (updatedContact === -1) {
     return null;
   }
-  contacts[updatedContact] = { ...body, contactId };
+  contacts[updatedContact] = { id, ...body };
   fs.writeFile(filePath, JSON.stringify(contacts, null, 2));
   return contacts[updatedContact];
 };

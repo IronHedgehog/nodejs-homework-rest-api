@@ -44,10 +44,9 @@ router.get("/:contactId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log("req.body", req.body);
     const { error } = joiSchema.validate(req.body);
     if (error) {
-      throw createError(400);
+      throw createError(400, "missing required name field");
     }
     const addedContact = await addContact(req.body);
     res.status(201).json(addedContact);
@@ -57,11 +56,33 @@ router.post("/", async (req, res, next) => {
 });
 
 router.delete("/:contactId", async (req, res, next) => {
-  res.json({ message: "template message" });
+  try {
+    const { contactId } = req.params;
+    const deletedContact = await removeContact(contactId);
+    if (!deletedContact) {
+      throw createError(404);
+    }
+    res.json({ message: "contact deleted" });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.put("/:contactId", async (req, res, next) => {
-  res.json({ message: "template message" });
+  try {
+    const { error } = joiSchema.validate(req.body);
+    if (error) {
+      throw createError(400, "missing fields");
+    }
+    const { contactId } = req.params;
+    const updatedContact = await updateContact(contactId, req.body);
+    if (!updatedContact) {
+      throw createError(404);
+    }
+    res.json(updatedContact);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
