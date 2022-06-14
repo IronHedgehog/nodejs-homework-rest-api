@@ -1,9 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const phoneRegExp =
-  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
-
 const contactSchema = Schema(
   {
     name: {
@@ -15,7 +12,6 @@ const contactSchema = Schema(
     },
     phone: {
       type: String,
-      match: phoneRegExp,
     },
     favorite: {
       type: Boolean,
