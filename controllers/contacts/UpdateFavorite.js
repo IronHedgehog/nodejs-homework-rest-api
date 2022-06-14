@@ -8,7 +8,7 @@ const updateFavorite = async (req, res) => {
     new: true,
   });
   if (!newFavorite) {
-    throw createError(404);
+    throw createError(400, "missing field favorite");
   }
   res.json(newFavorite);
 };
