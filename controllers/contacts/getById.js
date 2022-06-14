@@ -1,10 +1,13 @@
-const { getContactById } = require("../../models/contacts");
+const { Contact } = require("../../models/contact");
 
 const { createError } = require("../../helpers");
 
 const getById = async (req, res) => {
   const { contactId } = req.params;
-  const neededContact = await getContactById(contactId);
+  const neededContact = await Contact.findById(
+    contactId,
+    "-createdAt -updatedAt"
+  );
   if (!neededContact) {
     throw createError(404);
   }

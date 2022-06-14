@@ -1,10 +1,12 @@
-const { updateContact } = require("../../models/contacts");
+const { Contact } = require("../../models/contact");
 
 const { createError } = require("../../helpers");
 
 const updateByID = async (req, res) => {
   const { contactId } = req.params;
-  const updatedContact = await updateContact(contactId, req.body);
+  const updatedContact = await Contact.findByIdAndUpdate(contactId, req.body, {
+    new: true,
+  });
   if (!updatedContact) {
     throw createError(404);
   }
