@@ -28,7 +28,7 @@ const contactSchema = Schema(
 const addContact = Joi.object({
   name: Joi.string().required(),
   email: Joi.string(),
-  phone: Joi.number().pattern(phoneRegExp),
+  phone: Joi.number(),
   favorite: Joi.boolean(),
 });
 
