@@ -4,7 +4,7 @@ const { ctrlWrapper } = require("../../helpers");
 
 const { auth: ctrl } = require("../../controllers");
 
-const { validation } = require("../../middlewares");
+const { validation, auth } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -21,5 +21,9 @@ router.post(
   validation(schemas.joiLoginSchema),
   ctrlWrapper(ctrl.login)
 );
+
+router.get("/logout", auth, ctrlWrapper(ctrl.logout));
+
+router.get("/current", auth, ctrlWrapper(ctrl.current));
 
 module.exports = router;
