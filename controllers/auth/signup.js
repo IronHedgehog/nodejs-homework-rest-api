@@ -6,8 +6,9 @@ const { createError } = require("../../helpers");
 // ищем пользователя по емейлу в базе, если находим кидаем конфликт,
 // если не находим хешируем пароль и добавляем в базу нового пользователя
 
-const register = async (req, res) => {
+const signup = async (req, res) => {
   const { email, password } = req.body;
+  console.log("email,password", email, password);
   const user = await User.findOne({ email });
   if (user) {
     throw createError(409, "Email in use");
@@ -23,4 +24,4 @@ const register = async (req, res) => {
   });
 };
 
-module.exports = register;
+module.exports = signup;
