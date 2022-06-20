@@ -4,7 +4,7 @@ const { ctrlWrapper } = require("../../helpers");
 
 const { auth: ctrl } = require("../../controllers");
 
-const { validation, auth } = require("../../middlewares");
+const { validation, auth, isValidId } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -25,5 +25,12 @@ router.post(
 router.get("/logout", auth, ctrlWrapper(ctrl.logout));
 
 router.get("/current", auth, ctrlWrapper(ctrl.current));
+
+router.patch(
+  "/:id/subscription",
+  isValidId,
+  validation(schemas.joiPatchSchema),
+  ctrlWrapper(ctrl.updateSubscription)
+);
 
 module.exports = router;
