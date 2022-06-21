@@ -11,9 +11,8 @@ const { schemas } = require("../../models/contact");
 const router = express.Router();
 
 router.get("/", auth, ctrlWrapper(ctrl.getAll));
-console.log("ctrl.onlyFavorite", ctrl.onlyFavorite);
 
-router.get("/favorite=true", auth, ctrlWrapper(ctrl.onlyFavorite));
+router.get("/favorite", auth, ctrlWrapper(ctrl.onlyFavorite));
 
 router.get("/:contactId", auth, isValidId, ctrlWrapper(ctrl.getById));
 
