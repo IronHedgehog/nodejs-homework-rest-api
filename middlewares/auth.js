@@ -36,7 +36,7 @@ const auth = async (req, res, next) => {
     req.user = authUser;
     next();
   } catch (error) {
-    if (error.message === "Invalid signature") {
+    if (error.message === "іnvalid signature") {
       error.status = 401;
     }
     next(error);
